@@ -1,0 +1,12 @@
+{
+    "domain": "aqara_bridge",
+    "name": "Aqara Bridge",
+    "config_flow": true,
+    "iot_class": "cloud_polling",
+    "documentation": "",
+    "issue_tracker": "",
+    "requirements": ["rocketmq"],
+    "dependencies": [],
+    "codeowners": ["@angeljanne"],
+    "version": "v0.1.0"
+  }

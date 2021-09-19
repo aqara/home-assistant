@@ -1,0 +1,36 @@
+{
+    "config": {
+        "abort": {
+
+        },
+        "error": {
+
+        },
+        "flow_title": "{name}",
+        "step": {
+            "get_auth_code": {
+                "data": {
+                    "field_country_code": "云服务国家/地区",
+                    "field_account": "Aqara Home账号（手机号）",
+                    "field_refresh_token": "刷新令牌（开发用）"
+                },
+                "description": "使用在Aqara Home注册的账号进行登录。",
+                "title": "登录到Aqara云服务平台"
+            },
+            "get_token": {
+                "data": {
+                    "field_auth_code": "短信验证码"
+                },
+                "description": "请输入短信验证码。",
+                "title": "登录到Aqara云服务平台"
+            },
+            "select_devices": {
+                "data": {
+                    "field_selected_devices": "选择设备"
+                },
+                "description": "从列表中选择需要绑定的设备。",
+                "title": "从Aqara云服务平台绑定设备"
+            }
+        }
+    }
+}

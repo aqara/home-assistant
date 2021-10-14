@@ -34,6 +34,34 @@ AIOT_DEVICE_MAPPING = {
             },
         }
     },
+    "lumi.gateway.aqcn02": {
+        "remote": {
+            MK_RESOURCES: {
+                "pair": ("8.0.2111", ""),
+            },
+        }
+    },
+    "lumi.gateway.iragl5": {
+        "remote": {
+            MK_RESOURCES: {
+                "pair": ("8.0.2111", ""),
+            },
+        }
+    },
+    "lumi.camera.gwpagl01": {
+        "remote": {
+            MK_RESOURCES: {
+                "pair": ("8.0.2111", ""),
+            },
+        }
+    },
+    "lumi.camera.gwagl02": {
+        "remote": {
+            MK_RESOURCES: {
+                "pair": ("8.0.2111", ""),
+            },
+        }
+    },
     # 智能墙壁开关T1（单火单键）
     "lumi.switch.b1lacn01": {
         "switch": {

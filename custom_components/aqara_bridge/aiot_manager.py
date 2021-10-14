@@ -1,6 +1,7 @@
 import asyncio
 import json
 import logging
+from typing import Optional
 
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
@@ -218,22 +219,28 @@ class AiotManager:
     _session: AiotCloud = None
 
     # 所有设备
-    _all_devices: dict[str, list[AiotDevice]] = {}
+    # _all_devices: dict[str, list[AiotDevice]] = {}
+    _all_devices = {}
 
     # 所有在HA中管理的设备
-    _managed_devices: dict[str, AiotDevice] = {}
+    # _managed_devices: dict[str, AiotDevice] = {}
+    _managed_devices = {}
 
     # 配置对象和设备的对应关系，1：N
-    _entries_devices: dict[str, list[str]] = {}
+    # _entries_devices: dict[str, list[str]] = {}
+    _entries_devices = {}
 
     # 所有配置对象
-    _config_entries: dict[str, ConfigEntry] = {}
+    # _config_entries: dict[str, ConfigEntry] = {}
+    _config_entries = {}
 
     # 设备和实体的对应关系，1：N
-    _devices_entities: dict[str, list[AiotEntityBase]] = {}
+    # _devices_entities: dict[str, list[AiotEntityBase]] = {}
+    _devices_entities = {}
 
     # 插件不支持的设备列表
-    _unsupported_devices: list[AiotDevice] = []
+    # _unsupported_devices: list[AiotDevice] = []
+    _unsupported_devices = Optional[list]
 
     @property
     def session(self) -> AiotCloud:
@@ -241,12 +248,14 @@ class AiotManager:
         return self._session
 
     @property
-    def all_devices(self) -> list[AiotDevice]:
+    # def all_devices(self) -> list[AiotDevice]:
+    def all_devices(self):
         """获取Aiot Cloud上的所有设备"""
         return self._all_devices.values()
 
     @property
-    def unmanaged_gateways(self) -> list[AiotDevice]:
+    # def unmanaged_gateways(self) -> list[AiotDevice]:
+    def unmanaged_gateways(self) -> Optional[list]:
         """获取HA为管理的网关设备"""
         gateways = []
         [
@@ -257,7 +266,8 @@ class AiotManager:
         return gateways
 
     @property
-    def unsupported_devices(self) -> list[AiotDevice]:
+    # def unsupported_devices(self) -> list[AiotDevice]:
+    def unsupported_devices(self) -> Optional[list]:
         """插件不支持的设备列表"""
         devices = []
         [devices.append(x) for x in self._all_devices.values() if not x.is_supported]
@@ -303,7 +313,8 @@ class AiotManager:
     async def async_add_devices(
         self,
         config_entry: ConfigEntry,
-        devices: list[AiotDevice],
+        # devices: list[AiotDevice],
+        devices,
         auto_add_sub_devices=False,
     ):
         await self.async_refresh_all_devices()  # 刷新一次所有设备列表

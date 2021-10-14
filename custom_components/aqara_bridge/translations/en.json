@@ -1,0 +1,36 @@
+{
+    "config": {
+        "abort": {
+
+        },
+        "error": {
+
+        },
+        "flow_title": "{name}",
+        "step": {
+            "get_auth_code": {
+                "data": {
+                    "field_country_code": "Cloud Server Country/Region",
+                    "field_account": "Aqara Home Account (Cellular Number/ Email)",
+                    "field_refresh_token": "Refresh Token for Developer"
+                },
+                "description": "Use Aqara Home registered account to login.",
+                "title": "Login Aqara Cloud Server"
+            },
+            "get_token": {
+                "data": {
+                    "field_auth_code": "Verification Code via SMS or Email"
+                },
+                "description": "Please input Verification Code",
+                "title": "ogin Aqara Cloud Server"
+            },
+            "select_devices": {
+                "data": {
+                    "field_selected_devices": "Select devices"
+                },
+                "description": "Choose the devices from list.",
+                "title": "Choose the devices"
+            }
+        }
+    }
+}

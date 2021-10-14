@@ -1,0 +1,7 @@
+{
+    "name": "Aqara Bridge",
+    "render_readme": true,
+    "domain": "aqara_bridge",
+    "documentation": "https://github.com/niceboygithub/AqaraBridge",
+    "issue_tracker": "https://github.com/niceboygithub/AqaraBridge/issues"
+}

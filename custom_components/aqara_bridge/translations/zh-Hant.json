@@ -1,0 +1,36 @@
+{
+    "config": {
+        "abort": {
+
+        },
+        "error": {
+
+        },
+        "flow_title": "{name}",
+        "step": {
+            "get_auth_code": {
+                "data": {
+                    "field_country_code": "雲服務國家/地區",
+                    "field_account": "Aqara Home 帳號（手機號碼）/ 電子郵件",
+                    "field_refresh_token": "刷新令牌（開發用）"
+                },
+                "description": "使用在 Aqara Home 註冊的帳號進行登入。",
+                "title": "登入到 Aqara 雲服務平台"
+            },
+            "get_token": {
+                "data": {
+                    "field_auth_code": "簡訊驗證碼"
+                },
+                "description": "請輸入簡訊驗證碼。",
+                "title": "登入到 Aqara 雲服務平台"
+            },
+            "select_devices": {
+                "data": {
+                    "field_selected_devices": "選擇設備"
+                },
+                "description": "從清單中選擇需要綁定的設備。",
+                "title": "從 Aqara 雲服務平台綁定設備"
+            }
+        }
+    }
+}

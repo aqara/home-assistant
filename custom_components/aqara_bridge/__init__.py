@@ -2,14 +2,17 @@ import datetime
 import re
 import logging
 
+from homeassistant.core import HomeAssistant
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers import aiohttp_client
 
-from .aiot_manager import (
+from .core.aiot_manager import (
     AiotManager,
     AiotDevice,
 )
-from .aiot_cloud import AiotCloud
-from .const import *
+from .core.aiot_cloud import AiotCloud
+from .core.const import *
+from .core.utils import AqaraBridgeDebug
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -45,6 +48,7 @@ def init_hass_data(hass):
         hass.data[DOMAIN].setdefault(HASS_DATA_AIOTCLOUD, session)
     if not hass.data[DOMAIN].get(HASS_DATA_AIOT_MANAGER):
         hass.data[DOMAIN].setdefault(HASS_DATA_AIOT_MANAGER, AiotManager(hass, session))
+    hass.data[DOMAIN][CONF_DEBUG] = _LOGGER.level > 0  # default debug from Hass config
 
 
 async def async_setup(hass, config):
@@ -63,10 +67,19 @@ async def async_setup_entry(hass, entry):
             hass.config_entries.async_update_entry(entry, data=data)
 
     """Set up the Aqara components from a config entry."""
+
+    if CONF_ENTRY_AUTH_ACCOUNT in entry.data:
+        await _setup_logger(hass)
+
+    # add update handler
+    if not entry.update_listeners:
+        entry.add_update_listener(async_update_options)
+
     data = entry.data.copy()
     manager: AiotManager = hass.data[DOMAIN][HASS_DATA_AIOT_MANAGER]
     if CONF_ENTRY_AUTH_ACCOUNT in entry.data:
         aiotcloud: AiotCloud = hass.data[DOMAIN][HASS_DATA_AIOTCLOUD]
+        aiotcloud.set_options(entry.options)
         aiotcloud.update_token_event_callback = token_updated
         if (
             datetime.datetime.strptime(
@@ -77,7 +90,7 @@ async def async_setup_entry(hass, entry):
             resp = aiotcloud.async_refresh_token(
                 data.get(CONF_ENTRY_AUTH_REFRESH_TOKEN)
             )
-            if resp["code"] == 0:
+            if isinstance(resp, dict) and resp["code"] == 0:
                 auth_entry = gen_auth_entry(
                     data.get(CONF_ENTRY_AUTH_ACCOUNT),
                     data.get(CONF_ENTRY_AUTH_ACCOUNT_TYPE),
@@ -118,3 +131,30 @@ async def async_remove_entry(hass, entry):
         manager: AiotManager = hass.data[DOMAIN][HASS_DATA_AIOT_MANAGER]
         await manager.async_remove_entry(entry)
     return True
+
+
+async def async_update_options(hass: HomeAssistant, entry: ConfigEntry):
+    """ Update Optioins if available """
+    await hass.config_entries.async_reload(entry.entry_id)
+
+
+# These code are reference to @AlexxIT. It is very useful to help debug.
+async def _setup_logger(hass: HomeAssistant):
+    entries = hass.config_entries.async_entries(DOMAIN)
+    any_debug = any(e.options.get(CONF_DEBUG) for e in entries)
+
+    # only if global logging don't set
+    if not hass.data[DOMAIN][CONF_DEBUG]:
+        # disable log to console
+        _LOGGER.propagate = not any_debug
+        # set debug if any of integrations has debug
+        _LOGGER.setLevel(logging.DEBUG if any_debug else logging.NOTSET)
+
+    # if don't set handler yet
+    if any_debug and not _LOGGER.handlers:
+        handler = AqaraBridgeDebug(hass)
+        _LOGGER.addHandler(handler)
+
+        info = await hass.helpers.system_info.async_get_system_info()
+        info.pop('timezone')
+        _LOGGER.debug(f"SysInfo: {info}")

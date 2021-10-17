@@ -32,5 +32,16 @@
                 "title": "从Aqara云服务平台绑定设备"
             }
         }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Bridge \u914d\u7f6e",
+                "data": {
+                    "stats": "Stats",
+                    "debug": "\u9664\u9519"
+                }
+            }
+        }
     }
 }

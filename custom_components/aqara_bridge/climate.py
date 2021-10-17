@@ -1,12 +1,12 @@
 import logging
 from homeassistant.components.climate import ClimateEntity
 
-from .aiot_manager import (
+from .core.aiot_manager import (
     AiotManager,
     AiotEntityBase,
 )
-from .aiot_mapping import SPECIAL_DEVICES_INFO
-from .const import DOMAIN, HASS_DATA_AIOT_MANAGER
+from .core.aiot_mapping import SPECIAL_DEVICES_INFO
+from .core.const import DOMAIN, HASS_DATA_AIOT_MANAGER
 
 TYPE = "climate"
 
@@ -38,8 +38,11 @@ AC_STATE_MAPPING = {
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     manager: AiotManager = hass.data[DOMAIN][HASS_DATA_AIOT_MANAGER]
+    cls_entities = {
+        "default": AiotClimateEntity
+    }
     await manager.async_add_entities(
-        config_entry, TYPE, AiotClimateEntity, async_add_entities
+        config_entry, TYPE, cls_entities, async_add_entities
     )
 
 

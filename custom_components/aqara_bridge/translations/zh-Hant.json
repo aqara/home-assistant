@@ -10,26 +10,37 @@
         "step": {
             "get_auth_code": {
                 "data": {
-                    "field_country_code": "雲服務國家/地區",
-                    "field_account": "Aqara Home 帳號（手機號碼）/ 電子郵件",
-                    "field_refresh_token": "刷新令牌（開發用）"
+                    "field_country_code": "\u96f2\u670d\u52d9\u570b\u5bb6/\u5730\u5340",
+                    "field_account": "Aqara Home \u5e33\u865f\uff08\u624b\u6a5f\u865f\u78bc\uff09/ \u96fb\u5b50\u90f5\u4ef6",
+                    "field_refresh_token": "\u5237\u65b0\u4ee4\u724c\uff08\u958b\u767c\u7528\uff09"
                 },
-                "description": "使用在 Aqara Home 註冊的帳號進行登入。",
-                "title": "登入到 Aqara 雲服務平台"
+                "description": "\u4f7f\u7528\u5728 Aqara Home \u8a3b\u518a\u7684\u5e33\u865f\u9032\u884c\u767b\u5165\u3002",
+                "title": "\u767b\u5165\u5230 Aqara \u96f2\u670d\u52d9\u5e73\u53f0"
             },
             "get_token": {
                 "data": {
-                    "field_auth_code": "簡訊驗證碼"
+                    "field_auth_code": "\u7c21\u8a0a\u9a57\u8b49\u78bc"
                 },
-                "description": "請輸入簡訊驗證碼。",
-                "title": "登入到 Aqara 雲服務平台"
+                "description": "\u8acb\u8f38\u5165\u7c21\u8a0a\u9a57\u8b49\u78bc\u3002",
+                "title": "\u767b\u5165\u5230 Aqara \u96f2\u670d\u52d9\u5e73\u53f0"
             },
             "select_devices": {
                 "data": {
-                    "field_selected_devices": "選擇設備"
+                    "field_selected_devices": "\u9078\u64c7\u8a2d\u5099"
                 },
-                "description": "從清單中選擇需要綁定的設備。",
-                "title": "從 Aqara 雲服務平台綁定設備"
+                "description": "\u5f9e\u6e05\u55ae\u4e2d\u9078\u64c7\u9700\u8981\u7d81\u5b9a\u7684\u8a2d\u5099\u3002",
+                "title": "\u5f9e Aqara \u96f2\u670d\u52d9\u5e73\u53f0\u7d81\u5b9a\u8a2d\u5099"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Bridge \u8a2d\u5b9a",
+                "data": {
+                    "stats": "Stats",
+                    "debug": "\u9664\u932F"
+                }
             }
         }
     }

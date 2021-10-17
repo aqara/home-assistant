@@ -22,7 +22,7 @@
                     "field_auth_code": "Verification Code via SMS or Email"
                 },
                 "description": "Please input Verification Code",
-                "title": "ogin Aqara Cloud Server"
+                "title": "Login Aqara Cloud Server"
             },
             "select_devices": {
                 "data": {
@@ -30,6 +30,17 @@
                 },
                 "description": "Choose the devices from list.",
                 "title": "Choose the devices"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Bridge Config",
+                "data": {
+                    "stats": "Stats",
+                    "debug": "Debug"
+                }
             }
         }
     }

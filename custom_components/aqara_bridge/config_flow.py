@@ -1,10 +1,17 @@
 import logging
 import voluptuous as vol
+
 import homeassistant.helpers.config_validation as cv
-from homeassistant import config_entries
+from homeassistant.config_entries import (
+    CONN_CLASS_LOCAL_PUSH,
+    ConfigFlow,
+    OptionsFlow,
+    ConfigEntry
+    )
+from homeassistant.core import callback
 
 from . import init_hass_data, data_masking, gen_auth_entry
-from .const import (
+from .core.const import (
     DOMAIN,
     CONF_FIELD_ACCOUNT,
     CONF_FIELD_COUNTRY_CODE,
@@ -18,6 +25,9 @@ from .const import (
     SERVER_COUNTRY_CODES_DEFAULT,
     CONF_ENTRY_AUTH_ACCOUNT,
     HASS_DATA_AUTH_ENTRY_ID,
+    CONF_DEBUG,
+    CONF_STATS,
+    OPT_DEBUG
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -35,7 +45,7 @@ DEVICE_GET_AUTH_CODE_CONFIG = vol.Schema(
 DEVICE_GET_TOKEN_CONFIG = vol.Schema({vol.Required(CONF_FIELD_AUTH_CODE): str})
 
 
-class AqaraBridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class AqaraBridgeFlowHandler(ConfigFlow, domain=DOMAIN):
     """Handle an Aqara Bridge config flow."""
 
     VERSION = 1
@@ -47,6 +57,14 @@ class AqaraBridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self.account_type = None
         self._session = None
         self._device_manager = None
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry: ConfigEntry):
+        """ get option flow """
+        if CONF_ENTRY_AUTH_ACCOUNT in config_entry.data:
+            return OptionsFlowHandler(config_entry)
+        return DeviceOptionsFlowHandler(config_entry)
 
     async def async_step_user(self, user_input=None):
         """Handle a flow initialized by the user."""
@@ -176,4 +194,64 @@ class AqaraBridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=errors,
+        )
+
+class OptionsFlowHandler(OptionsFlow):
+    # pylint: disable=too-few-public-methods
+    """Handle options flow changes."""
+    _account = None
+    _token = None
+
+    def __init__(self, config_entry):
+        """Initialize options flow."""
+        self.config_entry = config_entry
+
+    async def async_step_init(self, user_input=None):
+        """Manage options."""
+        if user_input is not None:
+            return self.async_create_entry(
+                title='',
+                data={
+                    CONF_DEBUG: user_input.get(CONF_DEBUG, []),
+                },
+            )
+        debug = self.config_entry.options.get(CONF_DEBUG, [])
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema(
+                {
+                    vol.Optional(CONF_DEBUG, default=debug): cv.multi_select(
+                        OPT_DEBUG
+                    ),
+                }
+            ),
+        )
+
+
+class DeviceOptionsFlowHandler(OptionsFlow):
+    """Handle options flow changes."""
+
+    def __init__(self, config_entry):
+        """Initialize options flow."""
+        self.config_entry = config_entry
+
+    async def async_step_init(self, user_input=None):
+        """Manage options."""
+        if user_input is not None:
+            return self.async_create_entry(
+                title='',
+                data={
+                    CONF_STATS: user_input.get(CONF_STATS, False)
+                },
+            )
+        stats = self.config_entry.options.get(CONF_STATS, False)
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema(
+                {
+                    vol.Optional(CONF_STATS, default=stats): bool
+                }
+            ),
         )

@@ -2,11 +2,11 @@ import logging
 import homeassistant.util.color as color_util
 from homeassistant.components.light import LightEntity
 
-from .aiot_manager import (
+from .core.aiot_manager import (
     AiotManager,
     AiotToggleableEntityBase,
 )
-from .const import DOMAIN, HASS_DATA_AIOT_MANAGER
+from .core.const import DOMAIN, HASS_DATA_AIOT_MANAGER
 
 TYPE = "light"
 
@@ -17,8 +17,11 @@ DATA_KEY = f"{TYPE}.{DOMAIN}"
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     manager: AiotManager = hass.data[DOMAIN][HASS_DATA_AIOT_MANAGER]
+    cls_entities = {
+        "default": AiotLightEntity
+    }
     await manager.async_add_entities(
-        config_entry, TYPE, AiotLightEntity, async_add_entities
+        config_entry, TYPE, cls_entities, async_add_entities
     )
 
 
@@ -39,6 +42,10 @@ class AiotLightEntity(AiotToggleableEntityBase, LightEntity):
         if brightness:
             await self.async_set_resource("brightness", brightness)
 
+        color_temp = kwargs.get("color_temp")
+        if color_temp:
+            await self.async_set_resource("color_temp", color_temp)
+
         await super().async_turn_on(**kwargs)
 
     def convert_attr_to_res(self, res_name, attr_value):
@@ -57,6 +64,9 @@ class AiotLightEntity(AiotToggleableEntityBase, LightEntity):
                 ),
                 16,
             )
+        elif res_name == "color_temp":
+            # attr_value：color temp
+            return int(attr_value)
         return super().convert_attr_to_res(res_name, attr_value)
 
     def convert_res_to_attr(self, res_name, res_value):
@@ -69,4 +79,7 @@ class AiotLightEntity(AiotToggleableEntityBase, LightEntity):
             return color_util.color_RGB_to_hs(
                 int(argb[4:6], 16), int(argb[6:8], 16), int(argb[8:10], 16)
             )
+        elif res_name == "color_temp":
+            # res_value：153-500
+            return int(res_value)
         return super().convert_res_to_attr(res_name, res_value)

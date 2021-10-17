@@ -1,11 +1,11 @@
 import logging
 from homeassistant.components.cover import CoverEntity
 
-from .aiot_manager import (
+from .core.aiot_manager import (
     AiotManager,
     AiotEntityBase,
 )
-from .const import DOMAIN, HASS_DATA_AIOT_MANAGER
+from .core.const import DOMAIN, HASS_DATA_AIOT_MANAGER
 
 TYPE = "cover"
 
@@ -16,8 +16,11 @@ DATA_KEY = f"{TYPE}.{DOMAIN}"
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     manager: AiotManager = hass.data[DOMAIN][HASS_DATA_AIOT_MANAGER]
+    cls_entities = {
+        "default": AiotCoverEntity
+    }
     await manager.async_add_entities(
-        config_entry, TYPE, AiotCoverEntity, async_add_entities
+        config_entry, TYPE, cls_entities, async_add_entities
     )
 
 

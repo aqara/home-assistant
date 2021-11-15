@@ -17,7 +17,7 @@ API_DOMAIN = {
     "GER": "open-ger.aqara.com",
 }
 
-# apply APP_ID，KEY_ID APP_KEY from https://developer.aqara.com/
+# apply APP_ID，KEY_ID 、APP_KEY from https://developer.aqara.com/
 
 APP_ID = "88110776288481280040ace0"
 KEY_ID = "K.881107763014836224"

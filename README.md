@@ -8,4 +8,4 @@ Apply developer account of [Aqara IoT Cloud](https://developer.aqara.com/registe
 
 # Roadmap
 more devices will support, please leave messages to us if you need more devices support, or
-you can also Pull Request to us to support more aqara devices.
+you can also Pull Request to us to support more aqara devices .

@@ -9,11 +9,12 @@ from .core.aiot_manager import (
     AiotEntityBase,
 )
 from .core.const import (
-    DOMAIN,
-    HASS_DATA_AIOT_MANAGER,
     ATTR_CO2E,
     ATTR_HUMIDITY,
-    ATTR_TVOC
+    ATTR_TVOC,
+    DOMAIN,
+    HASS_DATA_AIOT_MANAGER,
+    PROP_TO_ATTR_BASE
 )
 
 TYPE = "air_quality"
@@ -50,6 +51,11 @@ class AiotAirMonitorEntity(AiotEntityBase, AirQualityEntity):
         AiotEntityBase.__init__(self, hass, device, res_params, TYPE, channel, **kwargs)
         self._attr_state_class = kwargs.get("state_class")
         self._attr_name = f"{self._attr_name} {self._attr_device_class}"
+        self._attr_temperature = None
+        self._attr_humidity = None
+        self._attr_particulate_matter_2_5 = None
+        self._attr_particulate_matter_0_1 = None
+        self._attr_particulate_matter_1_0 = None
 
     @property
     def carbon_dioxide_equivalent(self):
@@ -66,6 +72,21 @@ class AiotAirMonitorEntity(AiotEntityBase, AirQualityEntity):
         """Return the current humidity."""
         return self._attr_humidity
 
+    @property
+    def particulate_matter_0_1(self):
+        """Return the particulate matter 0.1 level."""
+        return self._attr_particulate_matter_0_1
+
+    @property
+    def particulate_matter_2_5(self):
+        """Return the particulate matter 2.5 level."""
+        return self._attr_particulate_matter_2_5
+
+    @property
+    def particulate_matter_10(self):
+        """Return the particulate matter 10 level."""
+        return self._attr_particulate_matter_1_0
+
     def convert_res_to_attr(self, res_name, res_value):
         if res_name == "chip_temperature":
             return round(float(res_value), 1)
@@ -80,7 +101,7 @@ class AiotAirMonitorEntity(AiotEntityBase, AirQualityEntity):
         if res_name == "temperature":
             return round(float(res_value), 1)
         if res_name == "humidity":
-            return round(float(res_value), 1)
+            return round(float(res_value / 100), 1) 
         return super().convert_res_to_attr(res_name, res_value)
 
     @property
@@ -103,6 +124,7 @@ class AiotAirMonitorEntity(AiotEntityBase, AirQualityEntity):
 
 class AiotTvocEntity(AiotAirMonitorEntity, AirQualityEntity):
     """Air Quality class for Aqara TVOC device."""
+    _attr_tvoc_level = None
 
     @property
     def tvoc_level(self):

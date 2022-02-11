@@ -128,8 +128,6 @@ class AiotActionSensor(AiotSensorEntity, SensorEntity):
                 'entity_id': self.entity_id, 'click_type': click_type
             })
 
-            time.sleep(.3)
-
             self.schedule_update_ha_state()
             return click_type
         return super().convert_res_to_attr(res_name, res_value)

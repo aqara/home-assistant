@@ -10,35 +10,35 @@
         "step": {
             "cloud": {
                 "data": {
-                    "cloud_country": "Bulut sunucusu ulkesi",
-                    "cloud_password": "Bulut sifresi",
-                    "cloud_username": "Bulut kullanici adi"
+                    "cloud_country": "Bulut sunucusu ülkesi",
+                    "cloud_password": "Bulut şifresi",
+                    "cloud_username": "Bulut kullanıcı adı"
                 },
-                "description": "Aqara Bulut'a giris yapin, kullanilacak bulut sunucusunu secin.",
-                "title": "Aqara Cihazi veya Aqara Ag Gecidine Baglan"
+                "description": "Aqara Bulut'a giriş yapın, kullanılacak bulut sunucusunu seçin.",
+                "title": "Aqara Cihazı veya Aqara Ağ Geçidine Bağlan"
             },
             "get_auth_code": {
                 "data": {
-                    "field_country_code": "Bulut sunucusu ulkesi/bolgesi",
-                    "field_account": "Aqara Home hesabi (telefon numarasi)",
-                    "field_refresh_token": "Yenileme jetonu (gelistirici icin)"
+                    "field_country_code": "Bulut sunucusu ülkesi/bölgesi",
+                    "field_account": "Aqara Home hesabı (telefon numarası)",
+                    "field_refresh_token": "Yenileme jetonu (geliştirici için)"
                 },
-                "description": "Aqara Home'da kayitli hesabinizla giris yapin.",
-                "title": "Aqara Bulut Platformuna Giris Yap"
+                "description": "Aqara Home'da kayıtlı hesabınızla giriş yapın.",
+                "title": "Aqara Bulut Platformuna Giriş Yap"
             },
             "get_token": {
                 "data": {
-                    "field_auth_code": "SMS dogrulama kodu"
+                    "field_auth_code": "SMS doğrulama kodu"
                 },
-                "description": "Lutfen SMS dogrulama kodunu girin.",
-                "title": "Aqara Bulut Platformuna Giris Yap"
+                "description": "Lütfen SMS doğrulama kodunu girin.",
+                "title": "Aqara Bulut Platformuna Giriş Yap"
             },
             "select_devices": {
                 "data": {
-                    "field_selected_devices": "Cihazlari sec"
+                    "field_selected_devices": "Cihazları seç"
                 },
-                "description": "Listeden baglamak istediginiz cihazlari secin.",
-                "title": "Aqara Bulut Platformundan Cihaz Bagla"
+                "description": "Listeden bağlamak istediğiniz cihazları seçin.",
+                "title": "Aqara Bulut Platformundan Cihaz Bağla"
             }
         }
     }

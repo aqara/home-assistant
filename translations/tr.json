@@ -1,0 +1,45 @@
+{
+    "config": {
+        "abort": {
+
+        },
+        "error": {
+
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Bulut sunucusu ulkesi",
+                    "cloud_password": "Bulut sifresi",
+                    "cloud_username": "Bulut kullanici adi"
+                },
+                "description": "Aqara Bulut'a giris yapin, kullanilacak bulut sunucusunu secin.",
+                "title": "Aqara Cihazi veya Aqara Ag Gecidine Baglan"
+            },
+            "get_auth_code": {
+                "data": {
+                    "field_country_code": "Bulut sunucusu ulkesi/bolgesi",
+                    "field_account": "Aqara Home hesabi (telefon numarasi)",
+                    "field_refresh_token": "Yenileme jetonu (gelistirici icin)"
+                },
+                "description": "Aqara Home'da kayitli hesabinizla giris yapin.",
+                "title": "Aqara Bulut Platformuna Giris Yap"
+            },
+            "get_token": {
+                "data": {
+                    "field_auth_code": "SMS dogrulama kodu"
+                },
+                "description": "Lutfen SMS dogrulama kodunu girin.",
+                "title": "Aqara Bulut Platformuna Giris Yap"
+            },
+            "select_devices": {
+                "data": {
+                    "field_selected_devices": "Cihazlari sec"
+                },
+                "description": "Listeden baglamak istediginiz cihazlari secin.",
+                "title": "Aqara Bulut Platformundan Cihaz Bagla"
+            }
+        }
+    }
+}

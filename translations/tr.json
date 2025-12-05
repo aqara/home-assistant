@@ -1,0 +1,36 @@
+{
+    "config": {
+        "abort": {
+
+        },
+        "error": {
+
+        },
+        "flow_title": "{name}",
+        "step": {
+            "get_auth_code": {
+                "data": {
+                    "field_country_code": "Bulut sunucusu ülkesi/bölgesi",
+                    "field_account": "Aqara Home hesabı (telefon numarası)",
+                    "field_refresh_token": "Yenileme jetonu (geliştirici için)"
+                },
+                "description": "Aqara Home'da kayıtlı hesabınızla giriş yapın.",
+                "title": "Aqara Bulut Platformuna Giriş Yap"
+            },
+            "get_token": {
+                "data": {
+                    "field_auth_code": "SMS doğrulama kodu"
+                },
+                "description": "Lütfen SMS doğrulama kodunu girin.",
+                "title": "Aqara Bulut Platformuna Giriş Yap"
+            },
+            "select_devices": {
+                "data": {
+                    "field_selected_devices": "Cihazları seç"
+                },
+                "description": "Listeden bağlamak istediğiniz cihazları seçin.",
+                "title": "Aqara Bulut Platformundan Cihaz Bağla"
+            }
+        }
+    }
+}

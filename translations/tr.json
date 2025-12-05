@@ -8,15 +8,6 @@
         },
         "flow_title": "{name}",
         "step": {
-            "cloud": {
-                "data": {
-                    "cloud_country": "Bulut sunucusu ülkesi",
-                    "cloud_password": "Bulut şifresi",
-                    "cloud_username": "Bulut kullanıcı adı"
-                },
-                "description": "Aqara Bulut'a giriş yapın, kullanılacak bulut sunucusunu seçin.",
-                "title": "Aqara Cihazı veya Aqara Ağ Geçidine Bağlan"
-            },
             "get_auth_code": {
                 "data": {
                     "field_country_code": "Bulut sunucusu ülkesi/bölgesi",

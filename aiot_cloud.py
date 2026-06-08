@@ -19,9 +19,9 @@ API_DOMAIN = {
 
 # apply APP_ID，KEY_ID 、APP_KEY from https://developer.aqara.com/
 
-APP_ID = "88110776288481280040ace0"
-KEY_ID = "K.881107763014836224"
-APP_KEY = "t7g6qhx4nmbeqmfq1w6yksucnbrofsgs"
+APP_ID = "TEST_APP_ID"
+KEY_ID = "TEST_KEY_ID"
+APP_KEY = "TEST_APP_KEY"
 
 
 def get_random_string(length: int):
